@@ -1,65 +1,98 @@
 import Image from "next/image";
+import "./globals.css";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className=" flex h-auto items-center justify-center flex-col font-sans ">
+      <div className="pentagon w-full h-screen relative ">
+        <div className=" absolute w-full h-full bg-indigo-900/50 flex items-center justify-center flex-col">
+          <h1 className="text-5xl uppercase -mt-20 tracking-widest md:text-8xl lg:text-6xl">
+            Outdoors
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-sm text-center uppercase tracking-[10px] md:text-3xl lg:text-xl">
+            is where life happens
           </p>
+          <button
+            className="
+            border flex items-center justify-center mt-3 py-2 text-lg rounded-3xl md:rounded-5xl
+            md:text-4xl md:py-5 md:px-7 md:font-light w-40 md:w-100 lg:text-xl lg:p-2 lg:w-75
+          hover:bg-[#1b1b1b]/70 hover:border-[#1b1b1b]/10 transition-all">
+            Start the journey
+          </button>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <Image
+          src="/paesaggio3.jpg"
+          width={1000}
+          height={1000}
+          loading="eager"
+          alt="Sample Image"
+          className="w-full h-full object-cover  "
+        />
+      </div>
+      <section className="w-full h-auto  flex flex-col items-center justify-center">
+        <h1 className="h-1/6 w-full flex items-center justify-center text-center text-2xl font-medium p-5 sm:text-3xl md:text-6xl lg:text-4xl md:font-semibold">
+          Exciting tours for adventurous people
+        </h1>
+        <div className=" w-full h-5/6 flex items-center justify-center flex-col lg:flex-row">
+          <div className=" w-full h-full flex flex-col items-center justify-center gap-4 text-start px-3 py-8 ">
+            <h3 className="w-full text-md md:text-4xl lg:text-2xl font-semibold uppercase  text-gray-400">
+              You're to fall in love with nature
+            </h3>
+            <p className=" md:text-xl lg:text-base text-gray-300">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum ad,
+              architecto dolores impedit, molestias beatae in facere, unde ullam
+              tempore nobis commodi at. Odio deserunt placeat, eum dolor
+              accusamus ipsa.
+            </p>
+            <h3 className="w-full text-md md:text-4xl lg:text-2xl font-semibold uppercase text-gray-400">
+              Live adventures like you never have before
+            </h3>
+            <p className=" md:text-xl lg:text-base text-gray-300">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis
+              maiores saepe tempora cupiditate ipsam velit possimus nihil atque,
+              molestiae autem laborum illo, magnam sapiente. Repudiandae
+              repellat aut quo deleniti veritatis.
+            </p>
+          </div>
+          <div className="w-full h-100 lg:flex items-center justify-center relative overflow-hidden hidden">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/paesaggio1.jpg"
+              width={500}
+              height={500}
+              loading="eager"
+              alt="Sample Image"
+              className=" w-70 h-50 object-cover absolute left-12 top-7 z-0 hover:z-3 hover:border-8 hover:border-solid hover:border-indigo-600 hover:p-3 transition-all"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <Image
+              src="/paesaggio2.jpg"
+              width={500}
+              height={500}
+              loading="eager"
+              alt="Sample Image"
+              className=" border w-70 h-50 object-cover absolute right-10 top-20 z-1 hover:z-3 hover:border-8 hover:border-solid hover:border-indigo-600 hover:p-3 transition-all"
+            />
+            <Image
+              src="/paesaggio3.jpg"
+              width={500}
+              height={500}
+              loading="eager"
+              alt="Sample Image"
+              className=" border w-70 h-50 object-cover absolute left-25 top-45 z-2 hover:z-3 hover:border-8 hover:border-solid hover:border-indigo-600 hover:p-3 transition-all "
+            />
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+      <section className="pentagon2 w-full h-screen relative ">
+        <div className=" absolute w-full h-full bg-indigo-900/50 flex items-center justify-center flex-col"></div>
+        <Image
+          src="/paesaggio1.jpg"
+          width={1000}
+          height={1000}
+          loading="eager"
+          alt="Sample Image"
+          className="w-full h-full object-cover  "
+        />
+      </section>
+    </main>
   );
 }
