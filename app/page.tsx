@@ -60,7 +60,7 @@ export default function Home() {
               src="/paesaggio1.jpg"
               width={500}
               height={500}
-              loading="eager"
+              loading="lazy"
               alt="Sample Image"
               className=" w-70 h-50 object-cover absolute left-12 top-7 z-0 hover:z-3 hover:border-8 hover:border-solid hover:border-indigo-600 hover:p-3 transition-all"
             />
@@ -68,7 +68,7 @@ export default function Home() {
               src="/paesaggio2.jpg"
               width={500}
               height={500}
-              loading="eager"
+              loading="lazy"
               alt="Sample Image"
               className=" border w-70 h-50 object-cover absolute right-10 top-20 z-1 hover:z-3 hover:border-8 hover:border-solid hover:border-indigo-600 hover:p-3 transition-all"
             />
@@ -76,7 +76,7 @@ export default function Home() {
               src="/paesaggio3.jpg"
               width={500}
               height={500}
-              loading="eager"
+              loading="lazy"
               alt="Sample Image"
               className=" border w-70 h-50 object-cover absolute left-25 top-45 z-2 hover:z-3 hover:border-8 hover:border-solid hover:border-indigo-600 hover:p-3 transition-all "
             />
@@ -88,7 +88,7 @@ export default function Home() {
           src="/paesaggio1.jpg"
           width={1000}
           height={1000}
-          loading="eager"
+          loading="lazy"
           alt="Sample Image"
           className="w-full h-full object-cover absolute z-0"
         />

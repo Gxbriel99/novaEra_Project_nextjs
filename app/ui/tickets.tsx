@@ -1,4 +1,4 @@
-import { ITicket, TType } from "../lib/definition";
+import { ITicket, TNavigateBack, TType } from "../lib/definition";
 
 import "../globals.css";
 
@@ -35,7 +35,7 @@ export const ticket: ITicket[] = [
         idTicket: 1003,
         oggetto: "Domanda su funzionalità prodotto X",
         descrzione: "Il prodotto X (versione 3.1) dovrebbe permettere la sincronizzazione automatica. Non trovo l'opzione nel menu impostazioni. È stata rimossa o devo attivarla altrove?",
-        allegati: null 
+        allegati: null
     },
     {
         idTicket: 1004,
@@ -52,17 +52,32 @@ export const ticket: ITicket[] = [
 ];
 
 
-export default function Ticket() {
+
+// 2. Aggiorna la funzione per accettare la prop
+export default function Ticket({ onNavigateBack }: TNavigateBack) {
     return (
         <main className="w-full h-full rounded-lg overflow-y-scroll bg-[#161616] p-2 scrollbar-hide">
+
+            {/* PULSANTE PER TORNARE INDIETRO - Aggiunto in cima */}
+            <div className="w-full flex justify-start p-2 pb-4">
+                <button
+                    onClick={onNavigateBack} // Chiama la funzione passata dal genitore
+                    className="flex items-center text-gray-400 hover:text-indigo-400 transition-colors duration-200 text-sm font-semibold"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4 mr-1">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                    </svg>
+                    Torna Indietro
+                </button>
+            </div>
+
             {
                 ticket && ticket.map((t) => (
                     <div
                         key={t.idTicket}
                         className="w-full p-3 sm:p-4 mb-2 bg-black rounded-lg flex items-center justify-between 
-                                   hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                                        hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
                     >
-
                         <div className="flex flex-col gap-1 pr-4 min-w-0 flex-grow">
 
                             <div className="flex items-center gap-3 flex-wrap">

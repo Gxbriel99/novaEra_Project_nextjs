@@ -15,3 +15,15 @@ export interface IAttachment{
 
 
 export type TType = '.pdf' |'.jpg' |'.jpeg' |'.png' |'.gif';
+
+
+
+export interface IStatusSection {
+    buttonSection: boolean;
+    emailSection: boolean;
+    ticketSection: boolean;
+}
+
+export interface TNavigateBack {
+    onNavigateBack: () => void;
+}
