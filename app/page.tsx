@@ -1,5 +1,6 @@
 import Image from "next/image";
 import "./globals.css";
+import HomeForm  from "./ui/homepageForm";
 
 export default function Home() {
   return (
@@ -82,16 +83,20 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="pentagon2 w-full h-screen relative ">
-        <div className=" absolute w-full h-full bg-indigo-900/50 flex items-center justify-center flex-col"></div>
+      <section className=" w-full h-screen relative">
         <Image
           src="/paesaggio1.jpg"
           width={1000}
           height={1000}
           loading="eager"
           alt="Sample Image"
-          className="w-full h-full object-cover  "
+          className="w-full h-full object-cover absolute z-0"
         />
+        <div className="pentagon2 w-full h-full absolute z-1 bg-white/50 flex flex-col items-start justify-center">
+        </div>
+        <div className="w-full h-full absolute z-2 bg-indigo-900/50 pentagon3"></div>
+        
+        <HomeForm/>
       </section>
     </main>
   );
