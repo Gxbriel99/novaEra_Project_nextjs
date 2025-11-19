@@ -14,7 +14,7 @@ export interface IAttachment{
 }
 
 
-export type TType = '.pdf' |'.jpg' |'.jpeg' |'.png' |'.gif';
+export type TType = '.pdf' |'.jpg' |'.jpeg' |'.png' ;
 
 
 
@@ -26,4 +26,15 @@ export interface IStatusSection {
 
 export interface TNavigateBack {
     onNavigateBack: () => void;
+}
+
+//MODAL HomepageForm
+
+export interface IModalForm {
+    name:string,
+    surname:string,
+    object:string,
+    email:string,
+    message:string,
+    attachment:IAttachment[]|null
 }

@@ -43,6 +43,9 @@ export default function HomeForm() {
                 placeholder="inserisci la password"
                 className="bg-black/75 text-white p-2"
             />
+            
+            {/* confonde i bot sui campi senza auth */}
+            <input type="text" name="honeybot" id="honeybot" className="hidden" /> 
 
             <button type="button" className="bg-black/75 text-white py-1 hover:bg-indigo-700 transition-all cursor-pointer ">Invia</button>
 
