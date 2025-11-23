@@ -1,7 +1,7 @@
 export interface ITicket {
     idTicket:number,
     oggetto:string,
-    descrzione:string,
+    description:string,
     allegati:IAttachment[]|null
 }
 
@@ -28,13 +28,6 @@ export interface TNavigateBack {
     onNavigateBack: () => void;
 }
 
-//MODAL HomepageForm
 
-export interface IModalForm {
-    name:string,
-    surname:string,
-    object:string,
-    email:string,
-    message:string,
-    attachment:IAttachment[]|null
-}
+
+

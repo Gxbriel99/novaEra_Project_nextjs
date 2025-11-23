@@ -1,4 +1,4 @@
-"use client";
+import './globals.css'
 
 import Menu from "./ui/menu";
 import Footer from "./ui/footer";

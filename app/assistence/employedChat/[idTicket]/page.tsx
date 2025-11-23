@@ -1,6 +1,17 @@
-import "../../globals.css";
+import { useEffect } from "react";
 
 export default function EmployedChat(){
+
+    const getTicket = () => {
+        console.log("ciao");
+    };
+
+    useEffect(() => {
+        getTicket();   // viene eseguita al montaggio della pagina
+    }, []);  
+
+    
+
     return (
         <main className="flex h-screen items-center justify-center flex-col">
             <div className="w-full h-full flex flex-col space-y-4 overflow-y-auto p-4 scrollbar-hide">
@@ -26,7 +37,6 @@ export default function EmployedChat(){
                 </div>
 
             </div>
-
             <div className="w-full p-4 border-t border-gray-700 bg-[#161616]">
                 <form className="flex items-center gap-2">
                     <input

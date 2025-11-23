@@ -13,19 +13,20 @@ const nameRegex = /^[a-zA-Z\u00C0-\u017F\s'-]+$/;
 
 // Schema IModalForm
 export const modalFormSchema = z.object({
-    name: z.string().min(3, { message: 'Il nome è obbligatorio.' })
+    name: z.string().min(3, { message: 'Il nome è troppo corto.' })
     .regex(nameRegex, { message: 'Il nome non deve contenere numeri o caratteri speciali.' }),
 
-    surname: z.string().min(3, { message: 'Il cognome è obbligatorio.' })
+    surname: z.string().min(3, { message: 'Il cognome è troppo corto.' })
         .regex(nameRegex, { message: 'Il cognome non deve contenere numeri o caratteri speciali.' }),
 
     object: z.string().min(1, { message: "L'oggetto è obbligatorio." }),
 
     email: z.string()
+        .nonempty("Il campo email non può essere vuoto")
         .min(3, { message: "L'email è obbligatoria." })
         .email({ message: "Formato email non valido." }),
 
-    message: z.string().min(1, { message: 'Il messaggio è obbligatorio.' }),
+    description: z.string().min(1, { message: 'Il messaggio è obbligatorio.' }),
 
     attachment: z.any()
         .optional()
@@ -39,6 +40,7 @@ export const modalFormSchema = z.object({
             // Questo è il caso in cui il campo è presente, ma non è una FileList (errore)
             return false;
         }, { message: 'Formato allegati non valido.' }),
+
 });
 
 
