@@ -2,7 +2,22 @@ export interface ITicket {
     idTicket:number,
     oggetto:string,
     description:string,
-    allegati:IAttachment[]|null
+}
+
+export interface IChat {
+    id:number
+    idTicket:number,
+    idUser:number,
+    message:string,
+    response:string,
+    idAttachment: IAttachment[]|null
+}
+
+export interface IMessage {
+    idTicket:number,
+    message?:string,
+    response?:string,
+    attachment:IAttachment[]|null
 }
 
 export interface IAttachment{
@@ -24,9 +39,7 @@ export interface IStatusSection {
     ticketSection: boolean;
 }
 
-export interface TNavigateBack {
-    onNavigateBack: () => void;
-}
+
 
 
 

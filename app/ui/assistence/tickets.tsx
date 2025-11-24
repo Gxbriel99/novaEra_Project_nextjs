@@ -16,9 +16,7 @@ export default function TicketSection({ openButtonsSection, getCustomerTickets, 
     const router= useRouter()
 
     const NavigateToTicket = (idTicket: number) => {
-        
-        router.push(`/employedChat/${idTicket}`);
-
+        router.push(`/assistence/chat/${idTicket}`);
     };
 
 
