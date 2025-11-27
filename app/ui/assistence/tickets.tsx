@@ -1,28 +1,58 @@
 'use client'
 
 import { ITicket } from "@/app/lib/definition";
-import "../../globals.css"; 
+import "../../globals.css";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@apollo/client/react";
+import { GET_TICKETS_LIST, GET_USER_TICKETS } from "@/app/lib/graphql/assistence/assistenceQuery";
 
 interface ITicketProps {
     openButtonsSection: () => void;
     getCustomerTickets: ITicket[];
-    getAssistenceTickets: ITicket[];
+    userEmail: string
+
 }
 
 
-export default function TicketSection({ openButtonsSection, getCustomerTickets, getAssistenceTickets }: ITicketProps) {
+export default function TicketSection({ openButtonsSection, getCustomerTickets, userEmail }: ITicketProps) {
 
-    const router= useRouter()
 
-    const NavigateToTicket = (idTicket: number) => {
-        router.push(`/assistence/chat/${idTicket}`);
+    //-----------------------------------------
+    //PARAMS
+    //-----------------------------------------
+    const router = useRouter()
+
+    const NavigateToTicket = (id: number) => {
+        router.push(`/assistence/chat/${id}`);
     };
 
+    //-----------------------------------------
+    //QUERY
+    //-----------------------------------------
+
+    const { data: allTicketsQuery} = useQuery<{ ticketsList: ITicket[] }>(
+        GET_TICKETS_LIST,
+        { skip: !!userEmail }
+    );
+
+    const allTickets: ITicket[] = allTicketsQuery?.ticketsList ?? [];
+
+    const { data: allUserTicketsQuery } = useQuery<{ userTicketsList: ITicket[] }>(
+        GET_USER_TICKETS,
+        {
+            skip: !userEmail,
+            variables: { email: userEmail }   
+        }
+    );
+
+    const userTickets: ITicket[] = allUserTicketsQuery?.userTicketsList ?? [];
+
+   
 
     return (
         <section className="flex h-screen items-center justify-center flex-col p-3">
             <div className="h-full w-full bg-[#161616] rounded-lg overflow-hidden overflow-y-auto">
+
                 {/* PULSANTE PER TORNARE INDIETRO */}
                 <div className="w-full flex justify-start p-2 pb-4">
                     <button
@@ -36,40 +66,60 @@ export default function TicketSection({ openButtonsSection, getCustomerTickets, 
                     </button>
                 </div>
 
-                {/* MOSTRA CUSTOMER TICKETS */}
-                {getCustomerTickets && getCustomerTickets.length > 0 && getCustomerTickets.map((t) => (
-                    <div key={t.idTicket} className="w-full p-3 sm:p-4 mb-2 bg-black rounded-lg flex items-center justify-between hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                        onClick={() => NavigateToTicket(t.idTicket)}>
-                        <div className="flex flex-col gap-1 pr-4 min-w-0 flex-grow">
-                            <div className="flex items-center gap-3 flex-wrap">
-                                <p className="text-indigo-400 font-bold text-sm sm:text-base">Ticket #{t.idTicket}</p>
-                                <h3 className="text-white font-semibold text-sm sm:text-base truncate max-w-xs">{t.oggetto}</h3>
+                {/* BLOCCO: ALL TICKETS */}
+                {allTickets.length > 0 && (
+                    <div>
+                        {allTickets.map((t) => (
+                            <div
+                                key={t.id}
+                                className="w-full p-3 sm:p-4 mb-2 bg-black rounded-lg flex items-center justify-between hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                                onClick={() => NavigateToTicket(t.id)}
+                            >
+                                <div className="flex flex-col gap-1 pr-4 min-w-0 flex-grow">
+                                    <div className="flex items-center gap-3 flex-wrap">
+                                        <p className="text-indigo-400 font-bold text-sm sm:text-base">Ticket #{t.id}</p>
+                                        <h3 className="text-white font-semibold text-sm sm:text-base truncate max-w-xs">{t.object}</h3>
+                                    </div>
+                                    <p className="text-sm text-gray-400 truncate max-w-full">
+                                        {t.description.length > 100 ? t.description.slice(0, 100) + "..." : t.description}
+                                    </p>
+                                </div>
                             </div>
-                            <p className="text-sm text-gray-400 truncate max-w-full">
-                                {t.description.length > 100 ? t.description.slice(0, 100) + "..." : t.description}
-                            </p>
-                        </div>
+                        ))}
                     </div>
-                ))}
+                )}
 
-                {/* MOSTRA ASSISTENCE TICKETS */}
-                {(!getCustomerTickets || getCustomerTickets.length === 0) && getAssistenceTickets && getAssistenceTickets.length > 0 && getAssistenceTickets.map((t) => (
-                    <div key={t.idTicket} className="w-full p-3 sm:p-4 mb-2 bg-black rounded-lg flex items-center justify-between hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                        onClick={() => NavigateToTicket(t.idTicket)}>
-                        <div className="flex flex-col gap-1 pr-4 min-w-0 flex-grow">
-                            <div className="flex items-center gap-3 flex-wrap">
-                                <p className="text-indigo-400 font-bold text-sm sm:text-base">Ticket #{t.idTicket}</p>
-                                <h3 className="text-white font-semibold text-sm sm:text-base truncate max-w-xs">{t.oggetto}</h3>
+                {/* BLOCCO: CUSTOMER TICKETS */}
+                {userTickets.length > 0 && (
+                    <div>
+                        {userTickets.map((t) => (
+                            <div
+                                key={t.id}
+                                className="w-full p-3 sm:p-4 mb-2 bg-black rounded-lg flex items-center justify-between hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                                onClick={() => NavigateToTicket(t.id)}
+                            >
+                                <div className="flex flex-col gap-1 pr-4 min-w-0 flex-grow">
+                                    <div className="flex items-center gap-3 flex-wrap">
+                                        <p className="text-indigo-400 font-bold text-sm sm:text-base">Ticket #{t.id}</p>
+                                        <h3 className="text-white font-semibold text-sm sm:text-base truncate max-w-xs">{t.object}</h3>
+                                    </div>
+                                    <p className="text-sm text-gray-400 truncate max-w-full">
+                                        {t.description.length > 100 ? t.description.slice(0, 100) + "..." : t.description}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
-                ))}
+                )}
 
                 {/* MESSAGGIO SE ENTRAMBI VUOTI */}
-                {(!getCustomerTickets || getCustomerTickets.length === 0) && (!getAssistenceTickets || getAssistenceTickets.length === 0) && (
+                {allTickets.length === 0 && userTickets.length === 0 && (
                     <p className="text-gray-400 text-center mt-4">Nessun ticket disponibile</p>
                 )}
+
             </div>
         </section>
-    )
+    );
+
+
 }

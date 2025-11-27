@@ -7,6 +7,8 @@ import EmailSection from "../ui/assistence/emailSection";
 import TicketSection from "../ui/assistence/tickets";
 import ButtonSection from "../ui/assistence/buttonSection";
 import { getAssistenceTickets } from "../lib/service/assistence/assistenceSection";
+import { useQuery } from "@apollo/client/react";
+import { GET_TICKETS_LIST } from "../lib/graphql/assistence/assistenceQuery";
 
 
 export default function Assistence() {
@@ -18,6 +20,9 @@ export default function Assistence() {
         ticketSection: false
     })
 
+    //get userEmail
+    const [email, setUserEmail] = useState<string>("");
+
     //Manage CustomerTickets
     const [customerTicket, setCustomerTickets] = useState<ITicket[]>([])
 
@@ -27,7 +32,7 @@ export default function Assistence() {
     
 
 
-    //Manage UI
+    //--------------Manage UI------------------//
     const openButtontSection = () => {
         setCustomerTickets([]);
         setAssistenceTickets([]);
@@ -45,7 +50,7 @@ export default function Assistence() {
             emailSection: true
         }));
     }
-    const openTicketSection = () => {
+     const openTicketSection = () => {
         chageStatus(prev => ({
             ...prev,
             buttonSection: false,
@@ -55,15 +60,10 @@ export default function Assistence() {
     }
 
 
-    //Manage ArrayTickets
-    const sendCustomerTickets = (data: ITicket[]) => {
-        setCustomerTickets(data)
-    }
-    const sendAssistenceTickets = async () => {
-        const tickets = await getAssistenceTickets()
-        console.log(tickets)
-        setAssistenceTickets(tickets)
-    }
+    
+
+    //----------QUERY--------//
+
 
 
     return (
@@ -71,18 +71,21 @@ export default function Assistence() {
             {statusSection.buttonSection && <ButtonSection
                 openEmailSection={openEmailSection}
                 openTicketSection={openTicketSection}
-                sendAssistenceTickets={sendAssistenceTickets} 
+                
             />}
 
             {statusSection.emailSection && <EmailSection
                 openButtonsSection={openButtontSection}
                 openTicketSection={openTicketSection}
-                sendCustomerTickets={sendCustomerTickets} />}
+                setUserEmail={setUserEmail} 
+                />}
 
             {statusSection.ticketSection && <TicketSection 
                 openButtonsSection={openButtontSection} 
+                
                 getCustomerTickets={customerTicket}
-                getAssistenceTickets={assistenceTicket}
+                userEmail={email}
+                
             />}
         </main>
     )

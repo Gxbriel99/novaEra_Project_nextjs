@@ -1,6 +1,6 @@
 export interface ITicket {
-    idTicket:number,
-    oggetto:string,
+    id:number,
+    object:string,
     description:string,
 }
 

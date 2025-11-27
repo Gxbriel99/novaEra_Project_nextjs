@@ -3,10 +3,10 @@ import { ITicket } from "@/app/lib/definition";
 interface ButtonSectionProps {
     openEmailSection: () => void;
     openTicketSection: () => void;
-    sendAssistenceTickets: () => void
+    
 }
 
-export default function ButtonSection({ openTicketSection, openEmailSection, sendAssistenceTickets }: ButtonSectionProps) {
+export default function ButtonSection({ openTicketSection, openEmailSection }: ButtonSectionProps) {
 
 
     return (
@@ -17,7 +17,6 @@ export default function ButtonSection({ openTicketSection, openEmailSection, sen
                     onClick={openEmailSection}>Customer</button>
                 <button className="m-2 px-8 py-2 md:px-20 md:py-4 md:text-3xl lg:text-2xl lg:px-15 lg:py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 transition-all cursor-pointer"
                     onClick={() => {
-                        sendAssistenceTickets();  
                         openTicketSection();      
                     }}
 

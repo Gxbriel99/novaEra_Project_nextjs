@@ -1,7 +1,11 @@
+'use client'
+
 import './globals.css'
 
 import Menu from "./ui/menu";
 import Footer from "./ui/footer";
+import { ApolloProvider } from '@apollo/client/react';
+import apolloClient from './lib/apollo/apolloClient';
 
 export default function RootLayout({
   children,
@@ -14,7 +18,9 @@ export default function RootLayout({
         
         <Menu></Menu>
 
-        {children}
+        <ApolloProvider client={apolloClient}>
+          {children}
+        </ApolloProvider>
 
         <Footer></Footer>
 

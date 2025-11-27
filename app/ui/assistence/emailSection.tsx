@@ -8,10 +8,10 @@ import { useForm } from "react-hook-form";
 interface ButtonSectionProps {
     openButtonsSection: () => void;
     openTicketSection: () => void;
-    sendCustomerTickets: (data: ITicket[]) => void
+    setUserEmail: (email: string) => void;
 }
 
-export default function EmailSection({ openTicketSection, openButtonsSection, sendCustomerTickets }: ButtonSectionProps) {
+export default function EmailSection({ openTicketSection, openButtonsSection, setUserEmail }: ButtonSectionProps) {
 
     const formMethod = useForm({
         resolver: zodResolver(emailSchema)
@@ -22,17 +22,15 @@ export default function EmailSection({ openTicketSection, openButtonsSection, se
         const checkBotValue = (document.getElementById('checkBot') as HTMLInputElement)?.value;
 
         if (checkBotValue && checkBotValue.trim() !== "") {
-            console.log("Bot rilevato! Form non inviato.");
+            console.warn("Bot rilevato! Form non inviato.");
             return;
         }
         
-        const response = await getUserTickets(data);
+        setUserEmail(data.email)
 
-        const tickets = response.data;
-
-        sendCustomerTickets(tickets)
-        
         openTicketSection()
+
+        return
         
     };
 
