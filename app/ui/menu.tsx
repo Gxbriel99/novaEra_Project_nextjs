@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { modalFormSchema, modalFormType } from "../lib/zod/menu/menuZod";
 import { sendTicket } from "../lib/service/menu";
+import { useSendTicketRequestMutation } from "../lib/codeGenType/graphql";
   
 
 const links: { name: string; href: string }[] = [
@@ -32,7 +33,6 @@ export default function Menu() {
     //---------------FILE--------------------------//
 
     const [filesArray, setFilesArray] = useState<File[]>([]);
-
   
     const addFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -47,8 +47,7 @@ export default function Menu() {
     });
 
     setFilesArray(file => [...file, ...filteredFiles]);
-};
-
+    };
 
     const removeFile = (index:number) => {
         setFilesArray(prev => prev.filter((_, i) => i !== index));
@@ -63,17 +62,34 @@ export default function Menu() {
         resolver: zodResolver(modalFormSchema)
     });
 
+
+    const [sendTicketRequest]= useSendTicketRequestMutation()
+
     // 3 creo la funzione "onSubmit"
-    const onSubmit = (data: modalFormType) => {
+    const onSubmit = async (data: any) => {
         // Recupera il campo checkBot dal DOM
         const checkBotValue = (document.getElementById('checkBot') as HTMLInputElement)?.value;
 
-        if (checkBotValue && checkBotValue.trim() !== "") {
-            console.log("Bot rilevato! Form non inviato.");
+        if (checkBotValue) {
+            console.warn("Bot rilevato! Form non inviato.");
             return;
         }
+        
 
-        sendTicket(data)
+        const payload = {
+            email : data.email,
+            name : data.name,
+            surname : data.surname,
+            object : data.object,
+            description : data.description,
+            attachments: null // Gestione degli allegati da implementare
+        }
+        
+
+        const result = await sendTicketRequest({
+            variables: { payload }
+        });
+
     };
 
 

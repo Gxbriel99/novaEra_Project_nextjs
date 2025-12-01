@@ -1,5 +1,5 @@
 export interface ITicket {
-    id:number,
+    id:string,
     object:string,
     description:string,
 }
@@ -14,10 +14,11 @@ export interface IChat {
 }
 
 export interface IMessage {
-    idTicket:number,
+    assistence_request_id:number,
     message?:string,
     response?:string,
-    attachment:IAttachment[]|null
+    attachments:[IAttachment][]|null
+    
 }
 
 export interface IAttachment{

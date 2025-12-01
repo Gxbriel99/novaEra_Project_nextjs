@@ -15,14 +15,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="m-0">
-        
-        <Menu></Menu>
 
         <ApolloProvider client={apolloClient}>
-          {children}
-        </ApolloProvider>
 
-        <Footer></Footer>
+          <Menu></Menu>
+          {children}
+
+          <Footer></Footer>
+
+        </ApolloProvider>
 
       </body>
     </html>

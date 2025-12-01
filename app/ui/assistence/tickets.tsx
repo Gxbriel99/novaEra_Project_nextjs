@@ -3,8 +3,7 @@
 import { ITicket } from "@/app/lib/definition";
 import "../../globals.css";
 import { useRouter } from "next/navigation";
-import { useQuery } from "@apollo/client/react";
-import { GET_TICKETS_LIST, GET_USER_TICKETS } from "@/app/lib/graphql/assistence/assistenceQuery";
+import { useGetTicketsListQuery, useGetUserTicketsQuery } from "@/app/lib/codeGenType/graphql";
 
 interface ITicketProps {
     openButtonsSection: () => void;
@@ -22,7 +21,10 @@ export default function TicketSection({ openButtonsSection, getCustomerTickets, 
     //-----------------------------------------
     const router = useRouter()
 
-    const NavigateToTicket = (id: number) => {
+    const NavigateAssistenceToTicket = (id: string) => {
+        router.push(`/assistence/chat/${id}?mode=assistence`);
+    };
+    const NavigateCustomerToTicket = (id: string) => {
         router.push(`/assistence/chat/${id}`);
     };
 
@@ -30,24 +32,22 @@ export default function TicketSection({ openButtonsSection, getCustomerTickets, 
     //QUERY
     //-----------------------------------------
 
-    const { data: allTicketsQuery} = useQuery<{ ticketsList: ITicket[] }>(
-        GET_TICKETS_LIST,
-        { skip: !!userEmail }
-    );
+    const { data: allTicketsData } = useGetTicketsListQuery({
+        skip: !!userEmail,
+    });
 
-    const allTickets: ITicket[] = allTicketsQuery?.ticketsList ?? [];
+    console.log(allTicketsData?.ticketsList)
+    const allTickets: ITicket[] = allTicketsData?.ticketsList ?? [];
 
-    const { data: allUserTicketsQuery } = useQuery<{ userTicketsList: ITicket[] }>(
-        GET_USER_TICKETS,
-        {
-            skip: !userEmail,
-            variables: { email: userEmail }   
-        }
-    );
+    const { data: userTicketsData } = useGetUserTicketsQuery({
+        skip: !userEmail,
+        variables: { email: userEmail },
+    });
 
-    const userTickets: ITicket[] = allUserTicketsQuery?.userTicketsList ?? [];
+    const userTickets: ITicket[] = userTicketsData?.userTicketsList ?? [];
 
-   
+
+
 
     return (
         <section className="flex h-screen items-center justify-center flex-col p-3">
@@ -73,7 +73,8 @@ export default function TicketSection({ openButtonsSection, getCustomerTickets, 
                             <div
                                 key={t.id}
                                 className="w-full p-3 sm:p-4 mb-2 bg-black rounded-lg flex items-center justify-between hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                                onClick={() => NavigateToTicket(t.id)}
+                                onClick={() => NavigateAssistenceToTicket(t.id)}
+
                             >
                                 <div className="flex flex-col gap-1 pr-4 min-w-0 flex-grow">
                                     <div className="flex items-center gap-3 flex-wrap">
@@ -96,7 +97,7 @@ export default function TicketSection({ openButtonsSection, getCustomerTickets, 
                             <div
                                 key={t.id}
                                 className="w-full p-3 sm:p-4 mb-2 bg-black rounded-lg flex items-center justify-between hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                                onClick={() => NavigateToTicket(t.id)}
+                                onClick={() => NavigateCustomerToTicket(t.id)}
                             >
                                 <div className="flex flex-col gap-1 pr-4 min-w-0 flex-grow">
                                     <div className="flex items-center gap-3 flex-wrap">

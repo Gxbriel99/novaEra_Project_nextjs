@@ -1,0 +1,22 @@
+overwrite: true
+
+schema: "http://91.98.195.174:8000/graphql"
+documents: "app/lib/graphql/**/*.ts"
+
+generates:
+  app/lib/codeGenType/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      apolloClientVersion: 3
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      reactApolloVersion: 3
+      skipTypename: false
+      useTypeImports: true
+      scalars:
+        DateTime: string
+        Date: string

@@ -1,14 +1,11 @@
 'use client'
 import "../globals.css";
 import { useState } from "react";
-
 import { IStatusSection, ITicket } from "../lib/definition";
 import EmailSection from "../ui/assistence/emailSection";
 import TicketSection from "../ui/assistence/tickets";
 import ButtonSection from "../ui/assistence/buttonSection";
-import { getAssistenceTickets } from "../lib/service/assistence/assistenceSection";
 import { useQuery } from "@apollo/client/react";
-import { GET_TICKETS_LIST } from "../lib/graphql/assistence/assistenceQuery";
 
 
 export default function Assistence() {
@@ -29,7 +26,7 @@ export default function Assistence() {
     //Manage CustomerTickets
     const [assistenceTicket, setAssistenceTickets] = useState<ITicket[]>([])
 
-    
+
 
 
     //--------------Manage UI------------------//
@@ -50,7 +47,7 @@ export default function Assistence() {
             emailSection: true
         }));
     }
-     const openTicketSection = () => {
+    const openTicketSection = () => {
         chageStatus(prev => ({
             ...prev,
             buttonSection: false,
@@ -59,33 +56,27 @@ export default function Assistence() {
         }));
     }
 
-
-    
-
     //----------QUERY--------//
-
-
 
     return (
         <main>
             {statusSection.buttonSection && <ButtonSection
                 openEmailSection={openEmailSection}
                 openTicketSection={openTicketSection}
-                
+
             />}
 
             {statusSection.emailSection && <EmailSection
                 openButtonsSection={openButtontSection}
                 openTicketSection={openTicketSection}
-                setUserEmail={setUserEmail} 
-                />}
+                setUserEmail={setUserEmail}
+            />}
 
-            {statusSection.ticketSection && <TicketSection 
-                openButtonsSection={openButtontSection} 
-                
+            {statusSection.ticketSection && <TicketSection
+                openButtonsSection={openButtontSection}
                 getCustomerTickets={customerTicket}
                 userEmail={email}
-                
+
             />}
         </main>
     )

@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_TICKETS_LIST = gql`
-  query {
+  query GetTicketsList {
     ticketsList {
       id
       object
